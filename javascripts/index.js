@@ -2,8 +2,18 @@ let user = ""
 
 let avatar = ""
 
+function rollDie() {
+  min = Math.ceil(1);
+  max = Math.floor(7);
+  return Math.floor(Math.random() * (7 - 1) + 1); //The maximum is exclusive and the minimum is inclusive
+}
 
-
+function rollDisplay() {
+  resetMain()
+  main().innerHTML = `
+  ${rollDie()}
+  `
+}
 
 
 function main() {
@@ -36,12 +46,12 @@ function princess() {
 
 function food() {
   eat.chosen = true
-  renderPartTwo()
+  renderPartTwo("food")
 }
 
 function horse() {
   ride.chosen = true
-  renderPartTwo()
+  renderPartTwo("horse")
 }
 
 
@@ -100,6 +110,15 @@ function avatarTemplate() {
   `
 }
 
+function rollTemplate() {
+  return `
+  <h3> ROLL! </h3>
+  <input type="hidden" id="roll" >
+  <input type="submit" value="Roll" onclick="return rollDisplay()">
+  `
+}
+
+
 function optionTemplate(){
   return `
   <h3> Make a choice Hero! </h3>
@@ -110,6 +129,10 @@ function optionTemplate(){
   <input type="submit" value="Choose" onclick="return horse()">
 
   `
+}
+
+function optionTwoTemplate() {
+
 }
 
 
@@ -156,9 +179,21 @@ function renderPartOne() {
   `
 }
 
-function renderPartTwo() {
+function renderPartTwo(option) {
   resetMain()
-  main().innerHTML = "HI"
+  if(option == "horse") {
+  main().innerHTML = `
+  <h3> You mount your trusty steed and make way 
+  for the mountains! as you gallop at maximum speed, 
+  a tricky rogue jumps at you from the bushes!
+  Roll quickly! 
+  ${rollTemplate()}
+  
+  `
+  }
+  else {
+    main().innerHTML
+  }
 }
 
 
