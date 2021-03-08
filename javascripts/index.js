@@ -1,6 +1,6 @@
-
-
 let user = ""
+
+let avatar = ""
 
 
 
@@ -14,6 +14,10 @@ function resetMain() {
 
 function nameInput() {
   return document.getElementById("name")
+}
+
+function avatarInput() {
+  return document.getElementById("avatar")
 }
 
 function form() {
@@ -40,29 +44,42 @@ function nameTemplate() {
 function avatarTemplate() {
   return `
   <h3> Choose your Avatar </h3>
-  <img src="avatars/finn.png" alt="">
-  <input type="submit" value="Choose">
-  <h3> Choose your Avatar </h3>
-  <img src="avatars/jake.png" alt="">
-  <input type="submit" value="Choose">
-  <h3> Choose your Avatar </h3>
-  <img src="avatars/princess.png" alt="">
-  <input type="submit" value="Choose">
+  <form id="form">
+    <img src="avatars/finn.png">
+    <input type="hidden" id="avatar" value="<img src='avatars/finn.png'>">
+    <input type="submit" value="Choose">
+    
+    <img src="avatars/jake.png" id="avatar">
+    <input type="submit" value="Choose">
+    
+    <img src="avatars/princess.png" id="avatar">
+    <input type="submit" value="Choose">
+  </form>
   `
 }
 
 function renderNameTemplate() {
   resetMain()
   main().innerHTML = nameTemplate()
-  form().addEventListener("submit", submitForm)
+  form().addEventListener("submit", submitName)
   
 }
 
-function submitForm(e) {
+function submitName(e) {
   e.preventDefault()
   user = nameInput().value
   main().innerHTML = avatarTemplate()
+  form().addEventListener("submit", submitAvatar)
 
+}
+
+function submitAvatar(e) {
+  e.preventDefault()
+  avatar = avatarInput().value
+}
+
+function renderStory() {
+  
 }
 
 
