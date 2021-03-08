@@ -16,9 +16,22 @@ function nameInput() {
   return document.getElementById("name")
 }
 
-function avatarInput() {
-  return document.getElementById("avatar")
+
+function finn() {
+  avatar = "<img src='avatars/finn.png'>"
+  return false
 }
+
+function jake() {
+  avatar = "<img src='avatars/jake.png'>"
+  return false
+}
+
+function princess() {
+  avatar = "<img src='avatars/princess.png'>"
+  return false
+}
+
 
 function form() {
   return document.getElementById("form")
@@ -47,13 +60,15 @@ function avatarTemplate() {
   <form id="form">
     <img src="avatars/finn.png">
     <input type="hidden" id="avatar" value="<img src='avatars/finn.png'>">
-    <input type="submit" value="Choose">
+    <input type="submit" value="Choose" onclick="return finn()">
     
-    <img src="avatars/jake.png" id="avatar">
-    <input type="submit" value="Choose">
+    <img src="avatars/jake.png" >
+    <input type="hidden" id="avatar" value="<img src='avatars/jake.png'>">
+    <input type="submit" value="Choose" onclick="return jake()">
     
-    <img src="avatars/princess.png" id="avatar">
-    <input type="submit" value="Choose">
+    <img src="avatars/princess.png" >
+    <input type="hidden" id="avatar" value="<img src='avatars/princess.png'>">
+    <input type="submit" value="Choose" onclick="return princess()">
   </form>
   `
 }
@@ -63,26 +78,31 @@ function renderNameTemplate() {
   main().innerHTML = nameTemplate()
   form().addEventListener("submit", submitName)
   
+  
+}
+
+function renderAvatarTemplate() {
+  resetMain()
+  main().innerHTML = avatarTemplate()
+ 
+  
 }
 
 function submitName(e) {
   e.preventDefault()
   user = nameInput().value
-  main().innerHTML = avatarTemplate()
-  form().addEventListener("submit", submitAvatar)
 
+  renderAvatarTemplate()
 }
 
-function submitAvatar(e) {
-  e.preventDefault()
-  avatar = avatarInput().value
-}
+
 
 function renderStory() {
-  
+  resetMain()
+  return `
+    ${avatar}
+  `
 }
-
-
 
 
 
@@ -91,6 +111,6 @@ document.addEventListener("DOMContentLoaded", function() {
     renderNameTemplate()
   }
   else {
-    main().innerHTML = avatarTemplate()
+    renderStory
   }
 })
