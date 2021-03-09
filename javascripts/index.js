@@ -1,5 +1,6 @@
-const story = []
-const user = []
+let story = []
+let users = []
+const baseUrl = "http://localhost:3000"
 let avatar = ""
 
 function rollDie() {
@@ -59,8 +60,13 @@ function form() {
   return document.getElementById("form")
 }
 
-function getUserName(input) {
-  user = input
+async function getUsers() {
+ 
+  const resp = await fetch(baseUrl + '/users')
+  const data = await resp.json()
+  
+  users = data
+  
 }
 
 function unfade(element) {
@@ -160,7 +166,28 @@ function submitName(e) {
     }
   }
   
-  renderAvatarTemplate()
+  
+ 
+
+  fetch(baseUrl + '/users', {
+    body: JSON.stringify(strongParams),
+    method: "POST",
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    }
+  })
+  .then(function(resp){
+    return resp.json()
+  })
+  .then(function(data){
+    users.push(data)
+    renderAvatarTemplate()
+    
+  })
+    
+  
+  
 }
 
 
@@ -204,8 +231,9 @@ function renderPartTwo(choice) {
 
 
 document.addEventListener("DOMContentLoaded", function() {
-  if(user.length == 0) {
+  if(users.length == 0) {
     renderNameTemplate()
+    getUsers()
   }
   else {
     
