@@ -1,16 +1,23 @@
-let story = []
+let stories = []
 let users = []
 let current_user = ""
-const baseUrl = "http://localhost:3000"
+let current_story = ""
 let avatar = ""
+const finnPic = "<img src='avatars/finn.png'></img>"
+const jakePic = "<img src='avatars/jake.png'>"
+const princessPic = "<img src='avatars/princess.png'>"
+const baseUrl = "http://localhost:3000"
 
 function rollDie() {
+
   min = Math.ceil(1);
   max = Math.floor(7);
-  return Math.floor(Math.random() * (7 - 1) + 1); //The maximum is exclusive and the minimum is inclusive
+  return Math.floor(Math.random() * (7 - 1) + 1);
+
 }
 
 function rollDisplay() {
+  
   resetMain()
   main().innerHTML = `
   ${rollDie()}
@@ -19,74 +26,61 @@ function rollDisplay() {
 
 
 function main() {
+
   return document.getElementById("main")
+
 }
 
 function resetMain() {
+
   main().innerHTML = ""
+
 }
 
 function nameInput() {
+
   return document.getElementById("name")
+
 }
 
 
 function finn() {
   
+  avatarFetch(finnPic)
   
-  strongParams = {
-    user: {
-      name: current_user.name,
-      avatar: "<img src='avatars/finn.png'>"
-    }
-  }
-  debugger
-  fetch(baseUrl + `/users/${current_user.id}`, {
-    method: "PATCH",
-    headers: {
-      "Accept": "application/json",
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(strongParams)
-  })
-  .then(function(resp) {
-    return resp.json()
-  })
-  .then(function(data){
-    users.forEach(function(user){
-      if(current_user.name == user.name){
-        current_user.avatar = "<img src='avatars/finn.png'>"
-      }
-    })
-  })
-
-  
-  renderPartOne()
 }
 
 function jake() {
-  avatar = "<img src='avatars/jake.png'>"
-  renderPartOne()
+  
+  avatarFetch(jakePic)
+
 }
 
 function princess() {
-  avatar = "<img src='avatars/princess.png'>"
-  renderPartOne()
+ 
+ avatarFetch(princessPic)
+
 }
 
 function food() {
+  
   eat.chosen = true
   renderPartTwo("food")
+
 }
 
 function horse() {
+  
   ride.chosen = true
   renderPartTwo("horse")
+
 }
 
 
 function form() {
+
   return document.getElementById("form")
+
 }
 
 async function getUsers() {
@@ -98,20 +92,36 @@ async function getUsers() {
   
 }
 
-function unfade(element) {
-  var op = 0.1;  // initial opacity
-  element.style.display = 'block';
-  var timer = setInterval(function () {
-      if (op >= 1){
-          clearInterval(timer);
-      }
-      element.style.opacity = op;
-      element.style.filter = 'alpha(opacity=' + op * 100 + ")";
-      op += op * 0.1;
-  }, 10);
+function createStoryObj() {
+  
+  let strongParams = {
+    story: {
+      user_id: "",
+      check_points: 0
+    }
+  }
+  
+  fetch(baseUrl + "/stories", {
+    body: JSON.stringify(strongParams),
+    method: "POST",
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    }
+  })
+  .then(function (resp){
+    return resp.json()
+  })
+  .then(function (data){
+    stories.push(data)
+    current_story = data
+  })
 }
 
+
+
 function storyTemplate() {
+
   return `
   <h2> Welcome to the Adventure Story! </h2>
   <br>
@@ -126,11 +136,12 @@ function storyTemplate() {
     </div>
     <input type="submit" value="Continue">
   </form>
-
   `
+
 }
 
 function nameTemplate() {
+
   return `
     <h2> Welcome to the Adventure Story! </h2>
     <br>
@@ -143,9 +154,11 @@ function nameTemplate() {
     <input type="submit" value="Create Hero">
     </form>
     `
+
 }
 
 function avatarTemplate() {
+
   return `
   <h3> Choose your Avatar </h3>
   
@@ -160,11 +173,12 @@ function avatarTemplate() {
     <img src="avatars/princess.png" >
     <input type="hidden" id="avatar" value="<img src='avatars/princess.png'>">
     <input type="submit" value="Choose" onclick="return princess()">
-  
   `
+
 }
 
 function rollTemplate() {
+
   return `
   <h3> ROLL! </h3>
   <input type="hidden" id="roll" >
@@ -174,6 +188,7 @@ function rollTemplate() {
 
 
 function choiceTemplate(){
+
   return `
   <h3> Make a choice Hero! </h3>
   ${eat.name} <input type="hidden" id="food" >
@@ -183,6 +198,7 @@ function choiceTemplate(){
   <input type="submit" value="Choose" onclick="return horse()">
 
   `
+
 }
 
 function choiceTwoTemplate() {
@@ -190,29 +206,31 @@ function choiceTwoTemplate() {
 }
 
 function renderStoryTemplate() {
+
   resetMain()
   main().innerHTML = storyTemplate()
   form().addEventListener("submit", findName)
   
-
 }
 
 function renderNameTemplate() {
+
   resetMain()
+  createStoryObj()
   main().innerHTML = nameTemplate()
   form().addEventListener("submit", submitName)
-  
-  
+
 }
 
 function renderAvatarTemplate() {
+
   resetMain()
   main().innerHTML = avatarTemplate()
  
-  
 }
 
 function findName(e) {
+
   e.preventDefault()
   let name = nameInput().value
   users.forEach(function (user){
@@ -222,24 +240,20 @@ function findName(e) {
     }
   })
 
-  }
+}
 
 
 
 function submitName(e) {
-  e.preventDefault()
 
+  e.preventDefault()
+  
   let strongParams = {
     user: {
       name: nameInput().value,
       avatar: ""
     }
   }
-
-  
-  
-  
- 
 
   fetch(baseUrl + '/users', {
     body: JSON.stringify(strongParams),
@@ -256,7 +270,7 @@ function submitName(e) {
     users.push(data)
     renderAvatarTemplate()
     current_user = data
-    
+    storiesFetch()
   })
 
 }
@@ -270,7 +284,7 @@ function renderPartOne() {
 
   <h3> Adventure awaits ${current_user.name}! </h3> <br>
   ${current_user.avatar}
-  <img src="images/pixelbkg.jpg" width="400" height="200"> 
+  <img src="images/pixelbkg.jpg" width="400" height="200"> <br><br>
   
   Adventurer! The non-binary princess prince has been captured 
   by the evil Dragon who is also non-binary! We need 
@@ -283,6 +297,7 @@ function renderPartOne() {
 }
 
 function renderPartTwo(choice) {
+
   resetMain()
   if(choice == "horse") {
   main().innerHTML = `
@@ -297,8 +312,66 @@ function renderPartTwo(choice) {
   else {
     main().innerHTML
   }
+
 }
 
+function avatarFetch(pic) {
+
+  strongParams = {
+    user: {
+      name: current_user.name,
+      avatar: pic
+    }
+  }
+  
+  fetch(baseUrl + `/users/${current_user.id}`, {
+    method: "PATCH",
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(strongParams)
+  })
+  .then(function(resp) {
+    return resp.json()
+  })
+  .then(function(data){
+    users.forEach(function(user){
+      if(current_user.name == user.name){
+        current_user.avatar = pic
+        renderPartOne()
+      }
+    })
+  })
+
+}
+
+function storiesFetch(user_id) {
+
+  strongParams = {
+    story: {
+      user_id: current_user.id,
+      check_points: 0
+    }
+  }
+  
+  
+  fetch(baseUrl + `/stories/${current_story.id}`, {
+    method: "PATCH",
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(strongParams)
+  })
+  .then(function(resp) {
+    return resp.json()
+  })
+  .then(function(data){
+    current_story = data
+  })
+
+}
 
 
 document.addEventListener("DOMContentLoaded", function() {
