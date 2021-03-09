@@ -32,7 +32,35 @@ function nameInput() {
 
 
 function finn() {
-  avatar = "<img src='avatars/finn.png'>"
+  
+  
+  strongParams = {
+    user: {
+      name: current_user.name,
+      avatar: "<img src='avatars/finn.png'>"
+    }
+  }
+  debugger
+  fetch(baseUrl + `/users/${current_user.id}`, {
+    method: "PATCH",
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(strongParams)
+  })
+  .then(function(resp) {
+    return resp.json()
+  })
+  .then(function(data){
+    users.forEach(function(user){
+      if(current_user.name == user.name){
+        current_user.avatar = "<img src='avatars/finn.png'>"
+      }
+    })
+  })
+
+  
   renderPartOne()
 }
 
@@ -140,7 +168,7 @@ function rollTemplate() {
   return `
   <h3> ROLL! </h3>
   <input type="hidden" id="roll" >
-  <input type="submit" value="Roll" onclick="return rollDisplay()">
+  <button onclick="return rollDisplay()" id="Ok"><img src="images/die.jpg" width="50" height="50"></button> 
   `
 }
 
@@ -189,8 +217,8 @@ function findName(e) {
   let name = nameInput().value
   users.forEach(function (user){
     if(name == user.name){
-      current_user = user.name
-      renderAvatarTemplate()
+      current_user = user
+      renderPartOne()
     }
   })
 
@@ -203,11 +231,12 @@ function submitName(e) {
 
   let strongParams = {
     user: {
-      name: nameInput().value
+      name: nameInput().value,
+      avatar: ""
     }
   }
 
-  current_user = nameInput().value
+  
   
   
  
@@ -226,6 +255,7 @@ function submitName(e) {
   .then(function(data){
     users.push(data)
     renderAvatarTemplate()
+    current_user = data
     
   })
 
@@ -238,8 +268,8 @@ function renderPartOne() {
   resetMain() 
   main().innerHTML = `
 
-  <h3> Adventure awaits ${current_user}! </h3> <br>
-  ${avatar}
+  <h3> Adventure awaits ${current_user.name}! </h3> <br>
+  ${current_user.avatar}
   <img src="images/pixelbkg.jpg" width="400" height="200"> 
   
   Adventurer! The non-binary princess prince has been captured 
