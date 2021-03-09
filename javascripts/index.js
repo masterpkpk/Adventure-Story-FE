@@ -1,5 +1,5 @@
-let user = ""
-
+const story = []
+const user = []
 let avatar = ""
 
 function rollDie() {
@@ -119,7 +119,7 @@ function rollTemplate() {
 }
 
 
-function optionTemplate(){
+function choiceTemplate(){
   return `
   <h3> Make a choice Hero! </h3>
   ${eat.name} <input type="hidden" id="food" >
@@ -131,7 +131,7 @@ function optionTemplate(){
   `
 }
 
-function optionTwoTemplate() {
+function choiceTwoTemplate() {
 
 }
 
@@ -153,8 +153,13 @@ function renderAvatarTemplate() {
 
 function submitName(e) {
   e.preventDefault()
-  user = nameInput().value
 
+  let strongParams = {
+    user: {
+      name: nameInput().value
+    }
+  }
+  
   renderAvatarTemplate()
 }
 
@@ -174,14 +179,14 @@ function renderPartOne() {
   your help to rescue them! (pronouns are important!)
   What is your first course of action?!
 
-  ${optionTemplate()}
+  ${choiceTemplate()}
   
   `
 }
 
-function renderPartTwo(option) {
+function renderPartTwo(choice) {
   resetMain()
-  if(option == "horse") {
+  if(choice == "horse") {
   main().innerHTML = `
   <h3> You mount your trusty steed and make way 
   for the mountains! as you gallop at maximum speed, 
@@ -199,7 +204,7 @@ function renderPartTwo(option) {
 
 
 document.addEventListener("DOMContentLoaded", function() {
-  if(user == "") {
+  if(user.length == 0) {
     renderNameTemplate()
   }
   else {
