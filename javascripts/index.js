@@ -1,5 +1,6 @@
 let story = []
 let users = []
+let current_user = ""
 const baseUrl = "http://localhost:3000"
 let avatar = ""
 
@@ -82,6 +83,25 @@ function unfade(element) {
   }, 10);
 }
 
+function storyTemplate() {
+  return `
+  <h2> Welcome to the Adventure Story! </h2>
+  <br>
+  Would you like to begin a new adventure?
+  <input type="submit" value="Yes!" onclick="return renderNameTemplate()">
+  <br>
+  Or enter name to continue?
+  <form id="form">
+    <div class="input-field">
+      <label for="name">Name</label>
+      <input type="text" name="name" id="name">
+    </div>
+    <input type="submit" value="Continue">
+  </form>
+
+  `
+}
+
 function nameTemplate() {
   return `
     <h2> Welcome to the Adventure Story! </h2>
@@ -141,6 +161,13 @@ function choiceTwoTemplate() {
 
 }
 
+function renderStoryTemplate() {
+  resetMain()
+  main().innerHTML = storyTemplate()
+  form().addEventListener("submit", findName)
+  
+
+}
 
 function renderNameTemplate() {
   resetMain()
@@ -157,6 +184,20 @@ function renderAvatarTemplate() {
   
 }
 
+function findName(e) {
+  e.preventDefault()
+  let name = nameInput().value
+  users.forEach(function (user){
+    if(name == user.name){
+      current_user = user.name
+      renderAvatarTemplate()
+    }
+  })
+
+  }
+
+
+
 function submitName(e) {
   e.preventDefault()
 
@@ -165,6 +206,8 @@ function submitName(e) {
       name: nameInput().value
     }
   }
+
+  current_user = nameInput().value
   
   
  
@@ -185,9 +228,7 @@ function submitName(e) {
     renderAvatarTemplate()
     
   })
-    
-  
-  
+
 }
 
 
@@ -197,7 +238,7 @@ function renderPartOne() {
   resetMain() 
   main().innerHTML = `
 
-  <h3> Adventure awaits ${user}! </h3> <br>
+  <h3> Adventure awaits ${current_user}! </h3> <br>
   ${avatar}
   <img src="images/pixelbkg.jpg" width="400" height="200"> 
   
@@ -232,7 +273,8 @@ function renderPartTwo(choice) {
 
 document.addEventListener("DOMContentLoaded", function() {
   if(users.length == 0) {
-    renderNameTemplate()
+    renderStoryTemplate()
+    // renderNameTemplate()
     getUsers()
   }
   else {
