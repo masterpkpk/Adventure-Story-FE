@@ -66,8 +66,46 @@ class Story {
 
     resetMain()
     main().innerHTML = Story.storyTemplate()
-    form().addEventListener("submit", findName)
+    form().addEventListener("submit", User.findName)
     
+  }
+
+  static renderPartOne() {
+ 
+    resetMain() 
+    main().innerHTML = `
+  
+    <h3> Adventure awaits ${current_user.name}! </h3> <br>
+    ${current_user.avatar}
+    <img src="images/pixelbkg.jpg" width="400" height="200"> <br><br>
+    
+    Adventurer! The non-binary princess prince has been captured 
+    by the evil Dragon who is also non-binary! We need 
+    your help to rescue them! (pronouns are important!)
+    What is your first course of action?!
+  
+    ${Choice.choiceTemplate()}
+    
+    `
+  }
+
+  static renderPartTwo(choice) {
+
+    resetMain()
+    if(choice == "horse") {
+    main().innerHTML = `
+    <h3> You mount your trusty steed and make way 
+    for the mountains! as you gallop at maximum speed, 
+    a tricky rogue jumps at you from the bushes!
+    Roll quickly! 
+    ${rollTemplate()}
+    
+    `
+    }
+    else {
+      main().innerHTML
+    }
+  
   }
   
 

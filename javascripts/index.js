@@ -41,14 +41,14 @@ function princess() {
 function food() {
   
   eat.chosen = true
-  Choice.renderPartTwo("food")
+  Story.renderPartTwo("food")
 
 }
 
 function horse() {
   ride.chosen = true
   
-  Choice.renderPartTwo("horse")
+ Story.renderPartTwo("horse")
 
 }
 
@@ -82,54 +82,12 @@ function rollTemplate() {
   `
 }
 
-
-
-
 function choiceTwoTemplate() {
 
 }
 
 
 
-
-function renderAvatarTemplate() {
-
-  resetMain()
-  main().innerHTML = avatarTemplate()
- 
-}
-
-function findName(e) {
-
-  e.preventDefault()
-  let name = nameInput().value
-  User.all.forEach(function (user){
-    if(name == user.name){
-      current_user = user
-      renderPartOne()
-    }
-  })
-
-}
-
-function renderPartOne() {
- 
-  resetMain() 
-  main().innerHTML = `
-
-  <h3> Adventure awaits ${current_user.name}! </h3> <br>
-  ${current_user.avatar}
-  <img src="images/pixelbkg.jpg" width="400" height="200"> <br><br>
-  
-  Adventurer! The non-binary princess prince has been captured 
-  by the evil Dragon who is also non-binary! We need 
-  your help to rescue them! (pronouns are important!)
-  What is your first course of action?!
-
-  ${Choice.choiceTemplate()}
-  
-  `
-}
 
 function avatarFetch(pic) {
 
@@ -155,7 +113,7 @@ function avatarFetch(pic) {
     User.all.forEach(function(user){
       if(current_user.name == user.name){
         current_user.avatar = pic
-        renderPartOne()
+        Story.renderPartOne()
       }
     })
   })

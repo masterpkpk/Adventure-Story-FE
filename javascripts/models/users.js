@@ -41,7 +41,7 @@ class User {
     .then(function(data) {
       User.create(data)
       User.all.push(data)
-      renderAvatarTemplate()
+      User.renderAvatarTemplate()
       current_user = data
       storiesFetch()
     })
@@ -73,5 +73,26 @@ class User {
     form().addEventListener("submit", User.submitName)
   
   }
+
+  static findName(e) {
+
+    e.preventDefault()
+    let name = nameInput().value
+    User.all.forEach(function (user){
+      if(name == user.name){
+        current_user = user
+        Story.renderPartOne()
+      }
+    })
+  
+  }
+
+  static renderAvatarTemplate() {
+
+    resetMain()
+    main().innerHTML = avatarTemplate()
+   
+  }
+  
   
 }

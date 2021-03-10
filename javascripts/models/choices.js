@@ -24,24 +24,7 @@ class Choice {
   
   }
 
-  static renderPartTwo(choice) {
-
-    resetMain()
-    if(choice == "horse") {
-    main().innerHTML = `
-    <h3> You mount your trusty steed and make way 
-    for the mountains! as you gallop at maximum speed, 
-    a tricky rogue jumps at you from the bushes!
-    Roll quickly! 
-    ${rollTemplate()}
-    
-    `
-    }
-    else {
-      main().innerHTML
-    }
   
-  }
 
 }
 
