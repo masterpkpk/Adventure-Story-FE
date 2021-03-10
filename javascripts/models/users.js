@@ -107,6 +107,19 @@ class User {
   
   }
 
+  static findsName() {
+
+    
+    let name = deleteName().value
+    
+    User.all.forEach(function (user){
+      if(name == user.name){
+        name = user
+      }
+    })
+    return name
+  }
+
   static renderAvatarTemplate() {
 
     resetMain()
@@ -132,6 +145,24 @@ class User {
           }
         })
       })
+  }
+
+  static async deleteUser(e) {
+
+    e.preventDefault()
+   
+    let user = User.findsName()
+    
+    
+    const data = await Api.delete(baseUrl + "/users/" + `${user.id}`)
+   
+    User.all = User.all.filter(function(user) {
+  
+      return user.id !== data.id
+    })
+    
+
+    Story.renderStoryTemplate()
   }
   
   
