@@ -65,6 +65,26 @@ class User {
   
   }
 
+  static avatarTemplate() {
+
+    return `
+    <h3> Choose your Avatar </h3>
+    
+      <img src="avatars/finn.png">
+      <input type="hidden" id="avatar" value="<img src='avatars/finn.png'>">
+      <input type="submit" value="Choose" onclick="return finn()">
+      
+      <img src="avatars/jake.png" >
+      <input type="hidden" id="avatar" value="<img src='avatars/jake.png'>">
+      <input type="submit" value="Choose" onclick="return jake()">
+      
+      <img src="avatars/princess.png" >
+      <input type="hidden" id="avatar" value="<img src='avatars/princess.png'>">
+      <input type="submit" value="Choose" onclick="return princess()">
+    `
+  
+  }
+
   static renderNameTemplate() {
 
     resetMain()
@@ -90,9 +110,30 @@ class User {
   static renderAvatarTemplate() {
 
     resetMain()
-    main().innerHTML = avatarTemplate()
+    main().innerHTML = User.avatarTemplate()
    
   }
+
+  static avatarFetch(pic) {
+
+    strongParams = {
+      user: {
+        name: current_user.name,
+        avatar: pic
+      }
+    }
+    
+    Api.patch(`/users/${current_user.id}`, strongParams)
+    .then(function(data){
+        User.all.forEach(function(user){
+          if(current_user.name == user.name){
+            current_user.avatar = pic
+            Story.renderPartOne()
+          }
+        })
+      })
+  }
+  
   
   
 }
