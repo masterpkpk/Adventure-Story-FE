@@ -1,6 +1,5 @@
-
+const baseUrl = "http://localhost:3000"
 let stories = []
-let users = []
 let current_user = ""
 let current_story = ""
 let avatar = ""

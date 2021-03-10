@@ -115,9 +115,9 @@ function choiceTwoTemplate() {
 function renderNameTemplate() {
 
   resetMain()
-  createStoryObj()
+  Story.createStoryObj()
   main().innerHTML = nameTemplate()
-  form().addEventListener("submit", submitName)
+  form().addEventListener("submit", User.submitName)
 
 }
 
@@ -132,7 +132,7 @@ function findName(e) {
 
   e.preventDefault()
   let name = nameInput().value
-  users.forEach(function (user){
+  User.all.forEach(function (user){
     if(name == user.name){
       current_user = user
       renderPartOne()
@@ -140,41 +140,6 @@ function findName(e) {
   })
 
 }
-
-
-
-function submitName(e) {
-
-  e.preventDefault()
-  
-  let strongParams = {
-    user: {
-      name: nameInput().value,
-      avatar: ""
-    }
-  }
-
-  fetch(baseUrl + '/users', {
-    body: JSON.stringify(strongParams),
-    method: "POST",
-    headers: {
-      "Accept": "application/json",
-      "Content-Type": "application/json"
-    }
-  })
-  .then(function(resp){
-    return resp.json()
-  })
-  .then(function(data){
-    users.push(data)
-    renderAvatarTemplate()
-    current_user = data
-    storiesFetch()
-  })
-
-}
-
-
 
 function renderPartOne() {
  
@@ -194,8 +159,6 @@ function renderPartOne() {
   
   `
 }
-
-
 
 function avatarFetch(pic) {
 
@@ -218,7 +181,7 @@ function avatarFetch(pic) {
     return resp.json()
   })
   .then(function(data){
-    users.forEach(function(user){
+    User.all.forEach(function(user){
       if(current_user.name == user.name){
         current_user.avatar = pic
         renderPartOne()
@@ -257,7 +220,7 @@ function storiesFetch(user_id) {
 
 
 document.addEventListener("DOMContentLoaded", function() {
-  if(users.length == 0) {
+  if(User.all.length == 0) {
     Story.renderStoryTemplate()
     // renderNameTemplate()
     User.getUsers()

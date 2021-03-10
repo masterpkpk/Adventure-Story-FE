@@ -19,7 +19,7 @@ class Story {
 
   }
   
-  createStoryObj() {
+  static createStoryObj() {
   
     let strongParams = {
       story: {
@@ -31,6 +31,7 @@ class Story {
     Api.post('/stories', strongParams)
       .then(function(data) {
         Story.create(data)
+        current_story = data
       })
 
   }
