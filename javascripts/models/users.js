@@ -64,5 +64,14 @@ class User {
       `
   
   }
+
+  static renderNameTemplate() {
+
+    resetMain()
+    Story.createStoryObj()
+    main().innerHTML = User.nameTemplate()
+    form().addEventListener("submit", User.submitName)
+  
+  }
   
 }

@@ -90,14 +90,7 @@ function choiceTwoTemplate() {
 }
 
 
-function renderNameTemplate() {
 
-  resetMain()
-  Story.createStoryObj()
-  main().innerHTML = User.nameTemplate()
-  form().addEventListener("submit", User.submitName)
-
-}
 
 function renderAvatarTemplate() {
 

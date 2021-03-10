@@ -42,7 +42,7 @@ class Story {
     <h2> Welcome to the Adventure Story! </h2>
     <br>
     Would you like to begin a new adventure? <br>
-    <input type="submit" value="Yes!" onclick="return renderNameTemplate()">
+    <input type="submit" value="Yes!" onclick="return User.renderNameTemplate()">
     <br><br>
     Or enter name to continue? <br> <br>
     <form id="form">
