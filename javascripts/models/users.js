@@ -46,7 +46,22 @@ class User {
       storiesFetch()
     })
     
+  }
 
+  static nameTemplate() {
+
+    return `
+      <h2> Welcome to the Adventure Story! </h2>
+      <br>
+      <h3>Enter your Hero's Name</h3>
+      <form id="form">
+      <div class="input-field">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name">
+      </div>
+      <input type="submit" value="Create Hero">
+      </form>
+      `
   
   }
   
