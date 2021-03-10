@@ -127,12 +127,31 @@ class User {
    
   }
 
+  
   static confirmUserForm() {
-
+    
     return `
-      Alright ${current_user.name}! Are you satisfied 
-      with your hero?!
+    <h3> Alright ${current_user.name}! Are you satisfied 
+    with your hero?! </h3>
+   
+  
+    <input type="submit" value="Yes i'm ready!" onclick="return Story.renderPartOne()">
+    <br><br>
+    
+    <form id="delete">
+      <div class="input-field">
+        <label for="delete">Type name to Delete</label> <br>
+        <input type="text" name="deletename" id="deletename">
+      </div>
+      <input type="submit" value="Are you sure?">
+    </form>
     `
+  }
+  
+  static renderConfirmUserForm() {
+    resetMain()
+    main().innerHTML = User.confirmUserForm()
+    deletes().addEventListener("submit", User.deleteUser)
   }
 
   static avatarFetch(pic) {
@@ -149,7 +168,7 @@ class User {
         User.all.forEach(function(user){
           if(current_user.name == user.name){
             current_user.avatar = pic
-            Story.renderStoryTemplate()
+            User.renderConfirmUserForm()
           }
         })
       })

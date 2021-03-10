@@ -52,13 +52,6 @@ class Story {
       </div>
       <input type="submit" value="Continue"> <br> <br>
     </form>
-    <form id="delete">
-      <div class="input-field">
-        <label for="delete">Type name to Delete</label> <br>
-        <input type="text" name="deletename" id="deletename">
-      </div>
-      <input type="submit" value="Are you sure?">
-    </form>
   
     `
   
@@ -69,7 +62,7 @@ class Story {
     resetMain()
     main().innerHTML = Story.storyTemplate()
     form().addEventListener("submit", User.findName)
-    deletes().addEventListener("submit", User.deleteUser)
+    
     
   }
 
