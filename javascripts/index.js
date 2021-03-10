@@ -2,7 +2,6 @@ const  resetMain = () => main().innerHTML = ""
 const finn = () => User.avatarFetch(finnPic)
 const jake = () => User.avatarFetch(jakePic)
 const princess = () => User.avatarFetch(princessPic)
-
 const rollDisplay = () => (resetMain(), main().innerHTML = `${rollDie()}`)
 const food = () => (eat.chosen = true, Story.renderPartTwo("food"))
 const  horse = () =>(ride.chosen = true, Story.renderPartTwo("horse"))

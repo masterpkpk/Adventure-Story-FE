@@ -127,6 +127,14 @@ class User {
    
   }
 
+  static confirmUserForm() {
+
+    return `
+      Alright ${current_user.name}! Are you satisfied 
+      with your hero?!
+    `
+  }
+
   static avatarFetch(pic) {
 
     strongParams = {
@@ -141,7 +149,7 @@ class User {
         User.all.forEach(function(user){
           if(current_user.name == user.name){
             current_user.avatar = pic
-            Story.renderPartOne()
+            Story.renderStoryTemplate()
           }
         })
       })
