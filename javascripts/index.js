@@ -1,5 +1,3 @@
-
-
 function rollDie() {
 
   min = Math.ceil(1);
@@ -55,26 +53,6 @@ function horse() {
 }
 
 
-
-
-
-function nameTemplate() {
-
-  return `
-    <h2> Welcome to the Adventure Story! </h2>
-    <br>
-    <h3>Enter your Hero's Name</h3>
-    <form id="form">
-    <div class="input-field">
-      <label for="name">Name</label>
-      <input type="text" name="name" id="name">
-    </div>
-    <input type="submit" value="Create Hero">
-    </form>
-    `
-
-}
-
 function avatarTemplate() {
 
   return `
@@ -116,7 +94,7 @@ function renderNameTemplate() {
 
   resetMain()
   Story.createStoryObj()
-  main().innerHTML = nameTemplate()
+  main().innerHTML = User.nameTemplate()
   form().addEventListener("submit", User.submitName)
 
 }
@@ -222,7 +200,6 @@ function storiesFetch(user_id) {
 document.addEventListener("DOMContentLoaded", function() {
   if(User.all.length == 0) {
     Story.renderStoryTemplate()
-    // renderNameTemplate()
     User.getUsers()
   }
   else {
