@@ -1,12 +1,4 @@
-let stories = []
-let users = []
-let current_user = ""
-let current_story = ""
-let avatar = ""
-const finnPic = "<img src='avatars/finn.png'></img>"
-const jakePic = "<img src='avatars/jake.png'>"
-const princessPic = "<img src='avatars/princess.png'>"
-const baseUrl = "http://localhost:3000"
+
 
 function rollDie() {
 
@@ -24,25 +16,11 @@ function rollDisplay() {
   `
 }
 
-
-function main() {
-
-  return document.getElementById("main")
-
-}
-
 function resetMain() {
 
   main().innerHTML = ""
 
 }
-
-function nameInput() {
-
-  return document.getElementById("name")
-
-}
-
 
 function finn() {
   
@@ -65,80 +43,20 @@ function princess() {
 function food() {
   
   eat.chosen = true
-  renderPartTwo("food")
+  Choice.renderPartTwo("food")
 
 }
 
 function horse() {
-  
   ride.chosen = true
-  renderPartTwo("horse")
-
-}
-
-
-function form() {
-
-  return document.getElementById("form")
-
-}
-
-async function getUsers() {
- 
-  const resp = await fetch(baseUrl + '/users')
-  const data = await resp.json()
   
-  users = data
-  
-}
-
-function createStoryObj() {
-  
-  let strongParams = {
-    story: {
-      user_id: "",
-      check_points: 0
-    }
-  }
-  
-  fetch(baseUrl + "/stories", {
-    body: JSON.stringify(strongParams),
-    method: "POST",
-    headers: {
-      "Accept": "application/json",
-      "Content-Type": "application/json"
-    }
-  })
-  .then(function (resp){
-    return resp.json()
-  })
-  .then(function (data){
-    stories.push(data)
-    current_story = data
-  })
-}
-
-
-
-function storyTemplate() {
-
-  return `
-  <h2> Welcome to the Adventure Story! </h2>
-  <br>
-  Would you like to begin a new adventure?
-  <input type="submit" value="Yes!" onclick="return renderNameTemplate()">
-  <br>
-  Or enter name to continue?
-  <form id="form">
-    <div class="input-field">
-      <label for="name">Name</label>
-      <input type="text" name="name" id="name">
-    </div>
-    <input type="submit" value="Continue">
-  </form>
-  `
+  Choice.renderPartTwo("horse")
 
 }
+
+
+
+
 
 function nameTemplate() {
 
@@ -187,31 +105,12 @@ function rollTemplate() {
 }
 
 
-function choiceTemplate(){
 
-  return `
-  <h3> Make a choice Hero! </h3>
-  ${eat.name} <input type="hidden" id="food" >
-  <input type="submit" value="Choose" onclick="return food()"> &nbsp;
-
-  ${ride.name} <input type="hidden" id="ride" >
-  <input type="submit" value="Choose" onclick="return horse()">
-
-  `
-
-}
 
 function choiceTwoTemplate() {
 
 }
 
-function renderStoryTemplate() {
-
-  resetMain()
-  main().innerHTML = storyTemplate()
-  form().addEventListener("submit", findName)
-  
-}
 
 function renderNameTemplate() {
 
@@ -291,29 +190,12 @@ function renderPartOne() {
   your help to rescue them! (pronouns are important!)
   What is your first course of action?!
 
-  ${choiceTemplate()}
+  ${Choice.choiceTemplate()}
   
   `
 }
 
-function renderPartTwo(choice) {
 
-  resetMain()
-  if(choice == "horse") {
-  main().innerHTML = `
-  <h3> You mount your trusty steed and make way 
-  for the mountains! as you gallop at maximum speed, 
-  a tricky rogue jumps at you from the bushes!
-  Roll quickly! 
-  ${rollTemplate()}
-  
-  `
-  }
-  else {
-    main().innerHTML
-  }
-
-}
 
 function avatarFetch(pic) {
 
@@ -376,9 +258,9 @@ function storiesFetch(user_id) {
 
 document.addEventListener("DOMContentLoaded", function() {
   if(users.length == 0) {
-    renderStoryTemplate()
+    Story.renderStoryTemplate()
     // renderNameTemplate()
-    getUsers()
+    User.getUsers()
   }
   else {
     
