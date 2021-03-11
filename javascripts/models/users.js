@@ -34,6 +34,7 @@ class User {
     let strongParams = {
       user: {
         name: nameInput().value,
+        story_id: current_story.id,
         avatar: ""
       }
     }
@@ -44,7 +45,7 @@ class User {
       User.all.push(data)
       User.renderAvatarTemplate()
       current_user = data
-      storiesFetch()
+     
     })
     
   }
@@ -58,21 +59,8 @@ class User {
         <label for="name">Name</label> <br><br>
         <input type="text" name="name" id="name" value="${current_user.name}" />
       </div>
-    
-    
-      <img src="avatars/finn.png">
-      <input type="hidden" id="avatar" value="<img src='avatars/finn.png'>">
-      <input type="checkbox" id="accept" checked> Accept
-      <input type="button" id="btn" value="Submit" >
-    </form>
-    <script>
-        const cb = document.querySelector('#accept');
-        const btn = document.querySelector('#btn');
-        btn.onclick = () => {
-            const result = cb.value;
-            alert(result); // on
-        };
-    </script>
+      <input type="submit" id="submit" value="Submit" >
+
     
     `;
 
@@ -95,9 +83,11 @@ class User {
     let strongParams = {
       user: {
         name: nameInput().value,
-        avatar: avatarInput().value
+        avatar: "",
+        story_id: current_user.story_id
       }
     }
+   
 
     const id = e.target.dataset.id;
     
@@ -107,6 +97,8 @@ class User {
         let u = User.all.find((u) => u.id == data.id);
         let idx = User.all.indexOf(u);
         User.all[idx] = new User(data);
+        current_user.name = nameInput().value
+        User.renderAvatarTemplate()
         
       })
 
@@ -165,10 +157,33 @@ class User {
     User.all.forEach(function (user){
       if(name == user.name){
         current_user = user
-        Story.renderPartOne()
+        User.findStory()
       }
     })
+    
   
+  }
+
+  static findStory() {
+    
+    Story.all.forEach(function (story){
+      if(story.id == current_user.story_id) {
+        current_story = story
+        User.findPart()
+      }
+    })
+  }
+
+  static findPart() {
+    const check = current_story.check_points
+    switch(check) {
+      case 2:
+        Story.renderPartTwo("horse")
+        break
+      default:
+        Story.renderPartOne()
+    }
+
   }
 
   static findsName() {
@@ -223,9 +238,10 @@ class User {
 
   static avatarFetch(pic) {
 
-    strongParams = {
+    let strongParams = {
       user: {
         name: current_user.name,
+        story_id: current_story.id,
         avatar: pic
       }
     }

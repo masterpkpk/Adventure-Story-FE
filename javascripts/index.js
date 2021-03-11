@@ -4,7 +4,7 @@ const jake = () => User.avatarFetch(jakePic)
 const princess = () => User.avatarFetch(princessPic)
 const rollDisplay = () => (resetMain(), main().innerHTML = `${rollDie()}`)
 const food = () => (eat.chosen = true, Story.renderPartTwo("food"))
-const  horse = () =>(ride.chosen = true, Story.renderPartTwo("horse"))
+const  horse = () =>(ride.chosen = true, current_story.check_points = ride.checkpoint_id, Story.updateCheckPoint(ride.checkpoint_id), Story.renderPartTwo("horse"))
 function rollDie() {
 
   min = Math.ceil(1);
@@ -27,36 +27,15 @@ function choiceTwoTemplate() {
 
 }
 
-function storiesFetch(user_id) {
 
-  strongParams = {
-    story: {
-      user_id: current_user.id,
-      check_points: 0
-    }
-  }
-  
-  fetch(baseUrl + `/stories/${current_story.id}`, {
-    method: "PATCH",
-    headers: {
-      "Accept": "application/json",
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(strongParams)
-  })
-  .then(function(resp) {
-    return resp.json()
-  })
-  .then(function(data){
-    current_story = data
-  })
 
-}
+
 
 document.addEventListener("DOMContentLoaded", function() {
   if(User.all.length == 0) {
     Story.renderStoryTemplate()
     User.getUsers()
+    Story.getStories()
   }
   else {
     

@@ -7,6 +7,7 @@ class Choice {
   this.chosen = attr.chosen
   this.user_id = attr.user_id
   this.story_id = attr.story_id
+  this.checkpoint_id = attr.checkpoint_id
   Choice.all.push(this)
   }
 
@@ -30,6 +31,6 @@ class Choice {
 
 }
 
-let eat = new Choice({name: "Food", chosen: false})
-let ride = new Choice({name: "Ride", chosen: false})
+let eat = new Choice({name: "Food", chosen: false, checkpoint_id: 1 })
+let ride = new Choice({name: "Ride", chosen: false, checkpoint_id: 2})
 

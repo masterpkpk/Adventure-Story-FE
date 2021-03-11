@@ -3,20 +3,54 @@ class Story {
   static all = []
 
   constructor(attr){
+
     this.check_points = attr.check_points
+
   }
 
   save() {
     Story.all.push(this)
   }
+
   
   static create(attr) {
-
+    
     let story = new Story(attr)
     story.save()
     return story
-
+    
   }
+  static async getStories() {
+ 
+    const data = await Api.get("/stories");
+    Story.all = data
+    
+  }
+
+  // static storyFetch() {
+
+  //  let strongParams = {
+  //     story: {
+  //       check_points: 0
+  //     }
+  //   }
+    
+  //   fetch(baseUrl + `/stories/${current_story.id}`, {
+  //     method: "PATCH",
+  //     headers: {
+  //       "Accept": "application/json",
+  //       "Content-Type": "application/json"
+  //     },
+  //     body: JSON.stringify(strongParams)
+  //   })
+  //   .then(function(resp) {
+  //     return resp.json()
+  //   })
+  //   .then(function(data){
+  //     current_story = data
+  //   })
+  
+  // }
   
   static createStoryObj() {
   
@@ -102,6 +136,29 @@ class Story {
     }
   
   }
+
+  static updateCheckPoint(checkpoint) {
+
+    let strongParams = {
+
+      story: {
+        check_points: checkpoint
+      }
+    }
+
+    Api.patch(`/stories/${current_story.id}`, strongParams) 
+    .then(function(data) {
+      current_story.check_points = data.check_points
+    })
+
+    
+
+  }
   
 
 }
+
+// checkpoint locations 
+//  1. = partOne
+//  2. = partTwo 
+//  ect ect 
