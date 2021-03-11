@@ -2,8 +2,9 @@ class User {
 
   static baseUrl = "http://localhost:3000"
 
-  constructor(name) {
-    this.name = name
+  constructor(attr) {
+    this.name = attr.name
+    this.story_id = attr.story_id
   }
 
   static all = []
@@ -46,6 +47,69 @@ class User {
       storiesFetch()
     })
     
+  }
+
+  static editFormTemplate(id) {
+
+    return `
+    <h3>Edit Hero</h3>
+    <form id="form" data-id="${id}">
+      <div class="input-field">
+        <label for="name">Name</label> <br><br>
+        <input type="text" name="name" id="name" value="${current_user.name}" />
+      </div>
+    
+    
+      <img src="avatars/finn.png">
+      <input type="hidden" id="avatar" value="<img src='avatars/finn.png'>">
+      <input type="checkbox" id="accept" checked> Accept
+      <input type="button" id="btn" value="Submit" >
+    </form>
+    <script>
+        const cb = document.querySelector('#accept');
+        const btn = document.querySelector('#btn');
+        btn.onclick = () => {
+            const result = cb.value;
+            alert(result); // on
+        };
+    </script>
+    
+    `;
+
+
+
+  }
+
+  static renderEditFormTemplate(user) {
+    
+    resetMain();
+    main().innerHTML = User.editFormTemplate(user);
+    form().addEventListener("submit", User.submitEditForm);
+  }
+
+
+  static submitEditForm(e) {
+
+    e.preventDefault();
+  
+    let strongParams = {
+      user: {
+        name: nameInput().value,
+        avatar: avatarInput().value
+      }
+    }
+
+    const id = e.target.dataset.id;
+    
+    Api.patch("/users/" + id, strongParams)
+      .then(function(data) {
+        
+        let u = User.all.find((u) => u.id == data.id);
+        let idx = User.all.indexOf(u);
+        User.all[idx] = new User(data);
+        
+      })
+
   }
 
   static nameTemplate() {
@@ -137,7 +201,10 @@ class User {
   
     <input type="submit" value="Yes i'm ready!" onclick="return Story.renderPartOne()">
     <br><br>
-    
+    OR click to edit 
+    <br><br>
+    <input type="submit" value="Take me back!" onclick="return User.renderEditFormTemplate(${current_user.id})">
+    <br><br>
     <form id="delete">
       <div class="input-field">
         <label for="delete">Type name to Delete</label> <br>
@@ -178,10 +245,10 @@ class User {
 
     e.preventDefault()
    
-    let user = User.findsName()
+    // let user = User.findsName()
     
     
-    const data = await Api.delete(baseUrl + "/users/" + `${user.id}`)
+    const data = await Api.delete(baseUrl + "/users/" + `${current_user.id}`)
    
     User.all = User.all.filter(function(user) {
   

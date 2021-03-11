@@ -5,6 +5,8 @@ class Choice {
   constructor(attr) {
   this.name = attr.name
   this.chosen = attr.chosen
+  this.user_id = attr.user_id
+  this.story_id = attr.story_id
   Choice.all.push(this)
   }
 

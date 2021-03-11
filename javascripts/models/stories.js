@@ -3,7 +3,6 @@ class Story {
   static all = []
 
   constructor(attr){
-    this.user_id = attr.user_id
     this.check_points = attr.check_points
   }
 
