@@ -1,7 +1,7 @@
 const  resetMain = () => main().innerHTML = ""
-const finn = () => User.avatarFetch(finnPic)
-const jake = () => User.avatarFetch(jakePic)
-const princess = () => User.avatarFetch(princessPic)
+const knight = () => User.avatarFetch(knightPic)
+const wolf = () => User.avatarFetch(wolfPic)
+const onion = () => User.avatarFetch(onionPic)
 const rollDisplay = () => (resetMain(), main().innerHTML = `${rollDie()}`)
 const food = () => (eat.chosen = true, Story.renderPartTwo("food"))
 const  horse = () =>(ride.chosen = true, current_story.check_points = ride.checkpoint_id, Story.updateCheckPoint(ride.checkpoint_id), Story.renderPartTwo("horse"))
@@ -19,7 +19,7 @@ function rollTemplate() {
   return `
   <h3> ROLL! </h3>
   <input type="hidden" id="roll" >
-  <button onclick="return rollDisplay()" id="Ok"><img src="images/die.jpg" width="50" height="50"></button> 
+  <p> <button onclick="return rollDisplay() " style="background-color: transparent" id="Ok">${diePic}</button> </p>
   `
 }
 

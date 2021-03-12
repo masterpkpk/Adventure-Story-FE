@@ -16,12 +16,13 @@ class Choice {
   static choiceTemplate(){
 
     return `
-    <h3> Make a choice Hero! </h3>
-    ${eat.name} <input type="hidden" id="food" >
-    <input type="submit" value="Choose" onclick="return food()"> &nbsp;
+    <br> <br>
+    <h1> Make a choice Hero! </h1>
+    <p> ${eat.name} <input type="hidden" id="food" > </p>
+    <p> <input type="submit" value="Choose" onclick="return food()"> </p>
   
-    ${ride.name} <input type="hidden" id="ride" >
-    <input type="submit" value="Choose" onclick="return horse()">
+    <p> ${ride.name} <input type="hidden" id="ride" > </p>
+    <p> <input type="submit" value="Choose" onclick="return horse()"> </p>
   
     `
   

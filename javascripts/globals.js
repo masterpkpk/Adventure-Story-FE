@@ -3,10 +3,10 @@ let stories = []
 let current_user = ""
 let current_story = ""
 let avatar = ""
-const finnPic = "<img src='avatars/finn.png'></img>"
-const jakePic = "<img src='avatars/jake.png'>"
-const princessPic = "<img src='avatars/princess.png'>"
-
+const knightPic = "<img class='knight' src='avatars/knight.gif'  height='188' width='188' ></img>"
+const wolfPic = "<img src='avatars/wolf.gif'  height='188' width='188' style='transform: scaleX(-1);'</img>"
+const onionPic = "<img src='avatars/onion.gif'  height='188' width='188' style='transform: scaleX(-1);'</img>"
+const diePic = "<img class='die' src='images/die.png' width='50' height='50'></img>"
 const main = () => document.getElementById("main")
 const form = () => document.getElementById("form")
 const check = () => document.getElementById("check")

@@ -72,19 +72,21 @@ class Story {
   static storyTemplate() {
 
     return `
-    <h2> Welcome to the Adventure Story! </h2>
+    
+    <h1> Welcome to the Adventure Story! </h1>
     <br>
-    Would you like to begin a new adventure? <br>
-    <input type="submit" value="Yes!" onclick="return User.renderNameTemplate()">
-    <br><br>
-    Or enter name to continue? <br> <br>
+    <p> Would you like to begin a new adventure? </p> 
+    <p> <input type="submit" value="Yes!" onclick="return User.renderNameTemplate()"></p>
+    
+    <p> Or enter name to continue </p> 
     <form id="form">
       <div class="input-field">
-        <label for="name">Name</label> <br>
-        <input type="text" name="name" id="name">
+        <p> <label for="name">Name</label> <br> </p>
+        <p> <input type="text" name="name" id="name"> </p>
       </div>
-      <input type="submit" value="Continue"> <br> <br>
+      <p> <input type="submit" value="Continue"> </p>
     </form>
+   
   
     `
   
@@ -104,14 +106,15 @@ class Story {
     resetMain() 
     main().innerHTML = `
   
-    <h3> Adventure awaits ${current_user.name}! </h3> <br>
-    ${current_user.avatar}
-    <img src="images/pixelbkg.jpg" width="400" height="200"> <br><br>
+    <h1> Adventure awaits ${current_user.name}! </h1>
+    <p> ${current_user.avatar} <p>
+
     
-    Adventurer! The non-binary princess prince has been captured 
+    <p> Adventurer! The non-binary princess prince has been captured 
     by the evil Dragon who is also non-binary! We need 
     your help to rescue them! (pronouns are important!)
-    What is your first course of action?!
+    What is your first course of action?!</p>
+    
   
     ${Choice.choiceTemplate()}
     
@@ -123,7 +126,7 @@ class Story {
     resetMain()
     if(choice == "horse") {
     main().innerHTML = `
-    <h3> You mount your trusty steed and make way 
+    <h1> You mount your trusty steed and make way 
     for the mountains! as you gallop at maximum speed, 
     a tricky rogue jumps at you from the bushes!
     Roll quickly! 

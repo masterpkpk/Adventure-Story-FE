@@ -53,7 +53,7 @@ class User {
   static editFormTemplate(id) {
 
     return `
-    <h3>Edit Hero</h3>
+    <h1>Edit Hero</h1>
     <form id="form" data-id="${id}">
       <div class="input-field">
         <label for="name">Name</label> <br><br>
@@ -107,15 +107,14 @@ class User {
   static nameTemplate() {
 
     return `
-      <h2> Welcome to the Adventure Story! </h2>
-      <br>
-      <h3>Enter your Hero's Name</h3>
+      
+      <h1>Enter your Hero's Name</h1>
       <form id="form">
       <div class="input-field">
-        <label for="name">Name</label>
-        <input type="text" name="name" id="name">
+        <h2> <label for="name">Name</label> </h2>
+        <p> <input type="text" name="name" id="name"> </p>
       </div>
-      <input type="submit" value="Create Hero">
+      <p> <input type="submit" value="Create Hero"> </p>
       </form>
       `
   
@@ -124,19 +123,20 @@ class User {
   static avatarTemplate() {
 
     return `
-    <h3> Choose your Avatar </h3>
+    <h1> Choose your Avatar </h1>
     
-      <img src="avatars/finn.png">
-      <input type="hidden" id="avatar" value="<img src='avatars/finn.png'>">
-      <input type="submit" value="Choose" onclick="return finn()">
+      <p><button onclick="return knight()" style="background-color: transparent" >
+      ${knightPic}</button></p>
+      <input type="hidden" id="avatar" value="<img src='avatars/knight.gif' style="background-color:transparent">">
       
-      <img src="avatars/jake.png" >
-      <input type="hidden" id="avatar" value="<img src='avatars/jake.png'>">
-      <input type="submit" value="Choose" onclick="return jake()">
       
-      <img src="avatars/princess.png" >
-      <input type="hidden" id="avatar" value="<img src='avatars/princess.png'>">
-      <input type="submit" value="Choose" onclick="return princess()">
+      <p><button onclick="return wolf()" style="background-color: transparent" >
+      ${wolfPic}</button></p>
+      <input type="hidden" id="avatar" value="<img src='avatars/wolf.gif' style="background-color:transparent">">
+      
+      <p><button onclick="return onion()" style="background-color: transparent" >
+      ${onionPic}</button></p>
+      <input type="hidden" id="avatar" value="<img src='avatars/onion.gif' style="background-color:transparent">">
     `
   
   }
@@ -210,22 +210,22 @@ class User {
   static confirmUserForm() {
     
     return `
-    <h3> Alright ${current_user.name}! Are you satisfied 
-    with your hero?! </h3>
+    <h1> Alright ${current_user.name}! Are you satisfied 
+    with your hero?! </h1> <br>
    
   
-    <input type="submit" value="Yes i'm ready!" onclick="return Story.renderPartOne()">
-    <br><br>
-    OR click to edit 
-    <br><br>
-    <input type="submit" value="Take me back!" onclick="return User.renderEditFormTemplate(${current_user.id})">
-    <br><br>
+    <p> <input type="submit" value="Yes i'm ready!" onclick="return Story.renderPartOne()"> </p>
+    
+    <p> OR click to edit </p>
+    
+    <p> <input type="submit" value="Take me back!" onclick="return User.renderEditFormTemplate(${current_user.id})"> </p>
+    
     <form id="delete">
       <div class="input-field">
-        <label for="delete">Type name to Delete</label> <br>
-        <input type="text" name="deletename" id="deletename">
+       <p> <label for="delete">Type name to Delete</label> </p>
+       <p> <input type="text" name="deletename" id="deletename"> </p>
       </div>
-      <input type="submit" value="Are you sure?">
+      <p> <input type="submit" value="Are you sure?"> </p>
     </form>
     `
   }
