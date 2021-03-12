@@ -31,6 +31,16 @@ class User {
 
     e.preventDefault()
     
+    
+    let user = User.findsNameOne(e)
+    
+
+    if(nameInput().value == user.name) {
+      
+      User.renderNameErrorTemplate()
+    }
+    else {
+
     let strongParams = {
       user: {
         name: nameInput().value,
@@ -47,6 +57,7 @@ class User {
       current_user = data
      
     })
+  }
     
   }
 
@@ -107,7 +118,7 @@ class User {
   static nameTemplate() {
 
     return `
-      
+    <div class="container">
       <h1>Enter your Hero's Name</h1>
       <form id="form">
       <div class="input-field">
@@ -116,27 +127,60 @@ class User {
       </div>
       <p> <input type="submit" value="Create Hero"> </p>
       </form>
+      </div>
       `
+    
+  
+  }
+
+  static nameErrorTemplate() {
+
+    return `
+    <div class="container">
+      <h1>Enter your Hero's Name</h1>
+      <br>
+      <h2> That name is already taken! Please choose another! </h2>
+      <form id="form">
+      <div class="input-field">
+        
+        <p> <input type="text" name="name" id="name"> </p>
+      </div>
+      <p> <input type="submit" value="Create Hero"> </p>
+      </form>
+      </div>
+      `
+    
   
   }
 
   static avatarTemplate() {
 
     return `
+    <div class="container">
     <h1> Choose your Avatar </h1>
+    <p>
+      <div class="row">
+        <div class="column">  
+          <button onclick="return knight()" style="background-color: transparent" >
+          ${knightPic}</button>
+          <input type="hidden" id="avatar" value="<img src='avatars/knight.gif' style='background-color:transparent'>">
+        </div>
+        
+        <div class="column"> 
+          <button onclick="return wolf()" style="background-color: transparent" >
+          ${wolfPic}</button>
+          <input type="hidden" id="avatar" value="<img src='avatars/wolf.gif' style='background-color:transparent'>">
+        </div>
+
+        <div class="column"> 
+          <button onclick="return onion()" style="background-color: transparent" >
+          ${onionPic}</button>
+          <input type="hidden" id="avatar" value="<img src='avatars/onion.gif' style='background-color:transparent'>">
+        </div>
+      </div>
+    </p>  
+    </div>
     
-      <p><button onclick="return knight()" style="background-color: transparent" >
-      ${knightPic}</button></p>
-      <input type="hidden" id="avatar" value="<img src='avatars/knight.gif' style="background-color:transparent">">
-      
-      
-      <p><button onclick="return wolf()" style="background-color: transparent" >
-      ${wolfPic}</button></p>
-      <input type="hidden" id="avatar" value="<img src='avatars/wolf.gif' style="background-color:transparent">">
-      
-      <p><button onclick="return onion()" style="background-color: transparent" >
-      ${onionPic}</button></p>
-      <input type="hidden" id="avatar" value="<img src='avatars/onion.gif' style="background-color:transparent">">
     `
   
   }
@@ -146,6 +190,14 @@ class User {
     resetMain()
     Story.createStoryObj()
     main().innerHTML = User.nameTemplate()
+    form().addEventListener("submit", User.submitName)
+  
+  }
+
+  static renderNameErrorTemplate() {
+
+    resetMain()
+    main().innerHTML = User.nameErrorTemplate()
     form().addEventListener("submit", User.submitName)
   
   }
@@ -199,6 +251,22 @@ class User {
     return name
   }
 
+
+  static findsNameOne(e) {
+    e.preventDefault()
+    
+    let name = nameInput().value
+    
+    User.all.forEach(function (user){
+      if(name == user.name){
+        name = user
+      
+      }
+    })
+    return name
+  }
+
+
   static renderAvatarTemplate() {
 
     resetMain()
@@ -210,6 +278,7 @@ class User {
   static confirmUserForm() {
     
     return `
+    <div class="container">
     <h1> Alright ${current_user.name}! Are you satisfied 
     with your hero?! </h1> <br>
    
@@ -227,6 +296,7 @@ class User {
       </div>
       <p> <input type="submit" value="Are you sure?"> </p>
     </form>
+    </div>
     `
   }
   

@@ -73,6 +73,7 @@ class Story {
 
     return `
     
+    <div class="container">
     <h1> Welcome to the Adventure Story! </h1>
     <br>
     <p> Would you like to begin a new adventure? </p> 
@@ -86,6 +87,8 @@ class Story {
       </div>
       <p> <input type="submit" value="Continue"> </p>
     </form>
+
+    </div>
    
   
     `
@@ -105,7 +108,7 @@ class Story {
  
     resetMain() 
     main().innerHTML = `
-  
+    <div class="container">
     <h1> Adventure awaits ${current_user.name}! </h1>
     <p> ${current_user.avatar} <p>
 
@@ -117,6 +120,8 @@ class Story {
     
   
     ${Choice.choiceTemplate()}
+
+    </div>
     
     `
   }
@@ -126,11 +131,14 @@ class Story {
     resetMain()
     if(choice == "horse") {
     main().innerHTML = `
-    <h1> You mount your trusty steed and make way 
+    <div class="container">
+    <h2> You mount your trusty steed and make way 
     for the mountains! as you gallop at maximum speed, 
     a tricky rogue jumps at you from the bushes!
-    Roll quickly! 
+    Roll quickly! </h2>
     ${rollTemplate()}
+
+    </div>
     
     `
     }

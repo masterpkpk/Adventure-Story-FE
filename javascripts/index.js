@@ -17,9 +17,12 @@ function rollDie() {
 function rollTemplate() {
 
   return `
-  <h3> ROLL! </h3>
+  <br>
+  
+  <h1> ROLL! </h1>
   <input type="hidden" id="roll" >
   <p> <button onclick="return rollDisplay() " style="background-color: transparent" id="Ok">${diePic}</button> </p>
+  
   `
 }
 
