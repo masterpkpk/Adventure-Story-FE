@@ -64,13 +64,16 @@ class User {
   static editFormTemplate(id) {
 
     return `
-    <h1>Edit Hero</h1>
+    <div class="container">
+    <h1>Edit Hero</h1> <br>
     <form id="form" data-id="${id}">
       <div class="input-field">
-        <label for="name">Name</label> <br><br>
+        <p> <label for="name">Name</label> </p> 
         <input type="text" name="name" id="name" value="${current_user.name}" />
       </div>
       <input type="submit" id="submit" value="Submit" >
+
+    </div>
 
     
     `;

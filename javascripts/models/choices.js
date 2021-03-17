@@ -11,27 +11,68 @@ class Choice {
   Choice.all.push(this)
   }
 
-  
+  static create(attr) {
+    
+    let choice = new Choice(attr)
+    choice.save()
+    return choice
+    
+  }
 
-  static choiceTemplate(){
+  save() {
+    Choice.all.push(this)
+  }
+
+  static choiceTemplate(choice1, choice2){
 
     return `
     <br> <br>
     <h1> Make a choice Hero! </h1>
-    <p> ${eat.name} <input type="hidden" id="food" > </p>
-    <p> <input type="submit" value="Choose" onclick="return food()"> </p>
+    <div class="row">
+      <div class="column">
+        <p> Search Room </p>
+        <button onclick="return search()" style="background-color: transparent" id="Ok" >
+        ${choice1}</button> 
+      </div>
+
+      <div class="column">
+        <p> Open Door </p>
+        <button onclick="return door()" style="background-color: transparent" id="Ok" >
+        ${choice2}</button> 
+      </div>
+    </div
   
-    <p> ${ride.name} <input type="hidden" id="ride" > </p>
-    <p> <input type="submit" value="Choose" onclick="return horse()"> </p>
+    
   
     `
   
   }
 
+  static createChoiceObj(decision, id) {
+
+    
+    let strongParams = {
+      choice: {
+        user_id: current_user.id,
+        story_id: current_user.id,
+        name: decision,
+        chosen: true,
+        checkpoint_id: id
+      }
+    }
+    
+    Api.post('/choices', strongParams)
+      .then(function(data) {
+        Choice.create(data)
+        current_checkpoint = data.checkpoint_id
+        current_story.check_points = current_checkpoint
+        
+      })
+    }
+
   
 
 }
 
-let eat = new Choice({name: "Food", chosen: false, checkpoint_id: 1 })
-let ride = new Choice({name: "Ride", chosen: false, checkpoint_id: 2})
+
 

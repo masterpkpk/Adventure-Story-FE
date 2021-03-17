@@ -32,7 +32,7 @@ h1 {
  
 }
 
-img.die:hover {
+img.shake:hover {
   /* Start the shake animation and make the animation last for 0.5 seconds */
   animation: shake 2s;
 

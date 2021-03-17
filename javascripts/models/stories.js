@@ -109,17 +109,12 @@ class Story {
     resetMain() 
     main().innerHTML = `
     <div class="container">
-    <h1> Adventure awaits ${current_user.name}! </h1>
-    <p> ${current_user.avatar} <p>
 
-    
-    <p> Adventurer! The non-binary princess prince has been captured 
-    by the evil Dragon who is also non-binary! We need 
-    your help to rescue them! (pronouns are important!)
-    What is your first course of action?!</p>
-    
-  
-    ${Choice.choiceTemplate()}
+      <p> You awaken to the sound of dripping water. Laying in a pile of rubble
+      you take a moment to asses the situation to find that you are trapped in a dungeon 
+      cell. You know this cell all too well. At the far end of the room there is a door. What will you do? </p>
+      
+      ${Choice.choiceTemplate(searchPic, doorPic)}
 
     </div>
     
@@ -129,21 +124,29 @@ class Story {
   static renderPartTwo(choice) {
 
     resetMain()
-    if(choice == "horse") {
-    main().innerHTML = `
-    <div class="container">
-    <h2> You mount your trusty steed and make way 
-    for the mountains! as you gallop at maximum speed, 
-    a tricky rogue jumps at you from the bushes!
-    Roll quickly! </h2>
-    ${rollTemplate()}
+    if(choice == "door") {
+      main().innerHTML = `
+      <div class="container">
+        <h2> 
+           
+        </h2>
+      
+      ${rollTemplate()}
 
-    </div>
-    
-    `
+      </div>
+      
+      `
     }
-    else {
-      main().innerHTML
+    else if (choice == "search") {
+      main().innerHTML = `
+        <div class="container">
+          <h2>
+          
+          </h2>
+        
+        ${rollTemplate()}
+        </div>
+      `
     }
   
   }
@@ -159,7 +162,7 @@ class Story {
 
     Api.patch(`/stories/${current_story.id}`, strongParams) 
     .then(function(data) {
-      current_story.check_points = data.check_points
+      
     })
 
     

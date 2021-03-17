@@ -1,10 +1,12 @@
-const  resetMain = () => main().innerHTML = ""
+const resetMain = () => main().innerHTML = ""
 const knight = () => User.avatarFetch(knightPic)
 const wolf = () => User.avatarFetch(wolfPic)
 const onion = () => User.avatarFetch(onionPic)
 const rollDisplay = () => (resetMain(), main().innerHTML = `${rollDie()}`)
-const food = () => (eat.chosen = true, Story.renderPartTwo("food"))
-const  horse = () =>(ride.chosen = true, current_story.check_points = ride.checkpoint_id, Story.updateCheckPoint(ride.checkpoint_id), Story.renderPartTwo("horse"))
+const search = () => (Choice.createChoiceObj("search", 1), Story.updateCheckPoint(1), rollTemplate())
+const  door = () =>(Choice.createChoiceObj("door", 2), Story.updateCheckPoint(2), rollTemplate())
+
+
 function rollDie() {
 
   min = Math.ceil(1);
@@ -16,10 +18,11 @@ function rollDie() {
 
 function rollTemplate() {
 
-  return `
-  <br>
+  resetMain() 
+  main().innerHTML = `
   
-  <h1> ROLL! </h1>
+  
+  <h1> Roll to decide your fate </h1>
   <input type="hidden" id="roll" >
   <p> <button onclick="return rollDisplay() " style="background-color: transparent" id="Ok">${diePic}</button> </p>
   
