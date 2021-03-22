@@ -234,7 +234,7 @@ class User {
 
     switch(check) {
       case 2:
-        Story.renderPartTwo("door")
+        rollTemplate(2)
         break
       
       default:

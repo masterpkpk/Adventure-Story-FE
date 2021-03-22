@@ -64,8 +64,7 @@ class Choice {
     Api.post('/choices', strongParams)
       .then(function(data) {
         Choice.create(data)
-        current_checkpoint = data.checkpoint_id
-        current_story.check_points = current_checkpoint
+        
         
       })
     }

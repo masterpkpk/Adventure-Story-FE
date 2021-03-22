@@ -125,28 +125,10 @@ class Story {
 
     resetMain()
     if(choice == "door") {
-      main().innerHTML = `
-      <div class="container">
-        <h2> 
-          
-        </h2>
-      
-      
-
-      </div>
-      
-      `
+      main().innerHTML = rollTemplate()
     }
     else if (choice == "search") {
-      main().innerHTML = `
-        <div class="container">
-          <h2>
-          
-          </h2>
-        
-        ${rollTemplate()}
-        </div>
-      `
+      rollTemplate()
     }
   
   }
