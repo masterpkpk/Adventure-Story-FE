@@ -128,10 +128,10 @@ class Story {
       main().innerHTML = `
       <div class="container">
         <h2> 
-           
+          
         </h2>
       
-      ${rollTemplate()}
+      
 
       </div>
       

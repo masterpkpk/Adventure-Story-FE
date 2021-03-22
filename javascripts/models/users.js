@@ -231,10 +231,12 @@ class User {
 
   static findPart() {
     const check = current_story.check_points
+
     switch(check) {
       case 2:
-        Story.renderPartTwo("horse")
+        Story.renderPartTwo("door")
         break
+      
       default:
         Story.renderPartOne()
     }

@@ -21,11 +21,11 @@ function rollTemplate() {
   resetMain() 
   main().innerHTML = `
   
-  
-  <h1> Roll to decide your fate </h1>
-  <input type="hidden" id="roll" >
-  <p> <button onclick="return rollDisplay() " style="background-color: transparent" id="Ok">${diePic}</button> </p>
-  
+  <div class="container">
+    <h1> Roll to decide your fate </h1>
+    <input type="hidden" id="roll" >
+    <p> <button onclick="return rollDisplay() " style="background-color: transparent" id="Ok">${diePic}</button> </p>
+  </div>
   `
 }
 
