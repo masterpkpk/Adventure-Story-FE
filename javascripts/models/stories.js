@@ -27,36 +27,11 @@ class Story {
     
   }
 
-  // static storyFetch() {
-
-  //  let strongParams = {
-  //     story: {
-  //       check_points: 0
-  //     }
-  //   }
-    
-  //   fetch(baseUrl + `/stories/${current_story.id}`, {
-  //     method: "PATCH",
-  //     headers: {
-  //       "Accept": "application/json",
-  //       "Content-Type": "application/json"
-  //     },
-  //     body: JSON.stringify(strongParams)
-  //   })
-  //   .then(function(resp) {
-  //     return resp.json()
-  //   })
-  //   .then(function(data){
-  //     current_story = data
-  //   })
-  
-  // }
   
   static createStoryObj() {
   
     let strongParams = {
       story: {
-        user_id: "",
         check_points: 0
       }
     }
@@ -70,29 +45,22 @@ class Story {
   }
 
   static storyTemplate() {
-
     return `
-    
     <div class="container">
-    <h1> Welcome to the Adventure Story! </h1>
-    <br>
-    <p> Would you like to begin a new adventure? </p> 
-    <p> <input type="submit" value="Yes!" onclick="return User.renderNameTemplate()"></p>
-    
-    <p> Or enter name to continue </p> 
-    <form id="form">
-      <div class="input-field">
-        <p> <label for="name">Name</label> <br> </p>
-        <p> <input type="text" name="name" id="name"> </p>
-      </div>
-      <p> <input type="submit" value="Continue"> </p>
-    </form>
-
+      <h1> Welcome to the Adventure Story! </h1>
+      <br>
+      <p> Would you like to begin a new adventure? </p> 
+      <p> <input type="submit" value="Yes!" onclick="return User.renderNameTemplate()"></p>
+      <p> Or enter name to continue </p> 
+      <form id="form">
+        <div class="input-field">
+          <p> <label for="name">Name</label> <br> </p>
+          <p> <input type="text" name="name" id="name"> </p>
+        </div>
+        <p> <input type="submit" value="Continue"> </p>
+      </form>
     </div>
-   
-  
     `
-  
   }
 
   static renderStoryTemplate() {

@@ -8,6 +8,7 @@ const  door = () =>(Choice.createChoiceObj("door", 2), rollTemplate(2))
 
 
 function rollDie(checkpoint) {
+  current_story.check_points = checkpoint
   Story.updateCheckPoint(checkpoint)
   min = Math.ceil(1);
   max = Math.floor(7);
